@@ -1,0 +1,52 @@
+name: CI/CD Backend
+
+on:
+  push:
+    branches:
+      - devops
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      SVC_ID: 8bd17c02-5dfe-4916-9a31-4337190090d8
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+
+    steps:
+      - name: Check code
+        uses: actions/checkout@v4
+
+      - name: Check secrets
+        run: |
+          if [ -z "${{ secrets.RAILWAY_TOKEN }}" ]; then
+            echo "❌ RAILWAY_TOKEN no está configurado"
+            exit 1
+          fi
+          echo "✅ Secrets configurados correctamente"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: dependencias pnpm
+        run: pnpm install
+
+      - name: Install node
+        uses: actions/setup-node@v4
+
+      - name: dependencias
+        run: npm install
+
+      #- name: Run linter
+      #  run: pnpm run lint
+
+      #- name: Run tests
+      #  run: npm test
+
+      #- name: Run integration tests
+      #  run: npm run test:integration
+
+      - name: Install Railway CLI
+        run: npm i -g @railway/cli
+
+      - name: deploy
+        run: railway up --service=${{ env.SVC_ID }}
