@@ -48,6 +48,8 @@ jobs:
 
       - name: Install Railway CLI
         run: npm i -g @railway/cli
+
+      - name: aaaa
         run: railway link -p 8bd17c02-5dfe-4916-9a31-4337190090d8
 
       - name: Deploy to Railway
