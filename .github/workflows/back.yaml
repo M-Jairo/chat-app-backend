@@ -50,4 +50,4 @@ jobs:
         run: npm i -g @railway/cli
 
       - name: Deploy to Railway
-        run: railway up
+        run: railway up --token=secrets.RAILWAY_TOKEN
