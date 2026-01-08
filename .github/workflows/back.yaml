@@ -50,7 +50,7 @@ jobs:
         run: npm i -g @railway/cli
 
       - name: aaaa
-        run: railway link -p 8bd17c02-5dfe-4916-9a31-4337190090d8
+        run: railway login
 
       - name: Deploy to Railway
         run: railway up
