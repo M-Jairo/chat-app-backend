@@ -8,10 +8,6 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
-    #container: ghcr.io/railwayapp/cli:latest
-    env:
-      SVC_ID:
-      RAILWAY_TOKEN: ${{  secrets.RAILWAY_TOKEN  }}
 
     steps:
       - name: Check code
@@ -19,8 +15,8 @@ jobs:
 
       - name: Check secrets
         run: |
-          if [ -z "${{ secrets.RAILWAY_TOKEN }}" ]; then
-            echo "❌ RAILWAY_TOKEN no está configurado"
+          if [ -z "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" ]; then
+            echo "❌ RENDER_DEPLOY_HOOK_URL no está configurado"
             exit 1
           fi
           echo "✅ Secrets configurados correctamente"
@@ -46,8 +42,7 @@ jobs:
       #- name: Run integration tests
       #  run: npm run test:integration
 
-      - name: Install Railway CLI
-        run: npm i -g @railway/cli
-
-      - name: Deploy to Railway
-        run: railway up --token=secrets.RAILWAY_TOKEN
+      - name: Deploy to render
+        env:
+          deploy_url: ${{  secrets.RENDER_DEPLOY_HOOK_URL  }}
+        run: curl "$deploy_url"
