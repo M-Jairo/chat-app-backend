@@ -4,10 +4,10 @@ import express, { Request, Response } from "express";
 import "dotenv/config";
 import http, { IncomingMessage } from "http";
 import { WebSocketServer } from "ws";
-import { checkIsInContacts, msgSenderHelper } from "./msgUtils";
-import { MessageData, MyWebSocket, Users } from "./types";
-import { restoringUserMessages, validateExistingUser } from "./utils";
-import { supabase } from "./supabase";
+import { checkIsInContacts, msgSenderHelper } from "./msgUtils.js";
+import { MessageData, MyWebSocket, Users } from "./types.js";
+import { restoringUserMessages, validateExistingUser } from "./utils.js";
+import { supabase } from "./supabase.js";
 //configs
 const app = express();
 app.use(express.json());
